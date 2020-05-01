@@ -8,7 +8,6 @@
 #define SCREEN_HEIGHT 970
 
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods );
-void DrawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength );
 
 GLfloat translationX = 0.0f;
 GLfloat translationY = 0.0f;
@@ -55,24 +54,35 @@ int main( void )
     GLfloat halfScreenWidth = SCREEN_WIDTH / 6;
     GLfloat halfScreenHeight = SCREEN_HEIGHT / 6;
 
-    Cube cube1;
-    cube1.setVertices(halfScreenWidth, halfScreenHeight, -500, 200);
-    Cube cube2;
-    cube2.setVertices(3*halfScreenWidth, halfScreenHeight, -500, 200);
-    Cube cube3;
-    cube3.setVertices(5*halfScreenWidth, halfScreenHeight, -500, 200);
-    Cube cube4;
-    cube4.setVertices(halfScreenWidth, 3*halfScreenHeight, -500, 200);
-    Cube cube5;
-    cube5.setVertices(3*halfScreenWidth, 3*halfScreenHeight, -500, 200);
-    Cube cube6;
-    cube6.setVertices(5*halfScreenWidth, 3*halfScreenHeight, -500, 200);
-    Cube cube7;
-    cube7.setVertices(halfScreenWidth, 5*halfScreenHeight, -500, 200);
-    Cube cube8;
-    cube8.setVertices(3*halfScreenWidth, 5*halfScreenHeight, -500, 200);
-    Cube cube9;
-    cube9.setVertices(5*halfScreenWidth, 5*halfScreenHeight, -500, 200);
+    std::vector<Cube> cubes;
+
+    Cube *cube = new Cube();
+    cube->setVertices(halfScreenWidth, halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(3*halfScreenWidth, halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(5*halfScreenWidth, halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(halfScreenWidth, 3*halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(3*halfScreenWidth, 3*halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(5*halfScreenWidth, 3*halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(halfScreenWidth, 5*halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(3*halfScreenWidth, 5*halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
+    cube = new Cube();
+    cube->setVertices(5*halfScreenWidth, 5*halfScreenHeight, -500, 200);
+    cubes.push_back(*cube);
 
 
     // Loop until the user closes the window
@@ -82,15 +92,9 @@ int main( void )
 
         // Render OpenGL here
         glViewport( translationX, translationY, screenWidth, screenHeight );
-        cube1.Draw();
-        cube2.Draw();
-        cube3.Draw();
-        cube4.Draw();
-        cube5.Draw();
-        cube6.Draw();
-        cube7.Draw();
-        cube8.Draw();
-        cube9.Draw();
+        for (Cube c : cubes) {
+            c.Draw();
+        }
 
 
         // Swap front and back buffers
@@ -138,56 +142,3 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
     }
 }
 
-
-void DrawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength )
-{
-    GLfloat halfSideLength = edgeLength * 0.5f;
-
-    GLfloat vertices[] =
-    {
-        // front face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
-
-        // back face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top left
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom left
-
-        // left face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
-
-        // right face
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
-
-        // top face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // bottom left
-
-        // top face
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength  // bottom left
-    };
-
-    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    //glColor3f( colour[0], colour[1], colour[2] );
-    glEnableClientState( GL_VERTEX_ARRAY );
-    glVertexPointer( 3, GL_FLOAT, 0, vertices );
-
-    glDrawArrays( GL_QUADS, 0, 24 );
-
-    glDisableClientState( GL_VERTEX_ARRAY );
-}
