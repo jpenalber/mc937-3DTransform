@@ -3,6 +3,10 @@
 #include <GL/glew.h>
 #include <vector>
 
+#define X 1
+#define SHIFT_X 2
+#define Y 3
+#define SIFIT_Y 4
 
 class Cube
 {
@@ -14,6 +18,8 @@ public:
     void diselect();
     void selectAll();
     void diselectAll();
+
+    void scaling()
 
 private:
     std::vector<GLfloat> vertices;
