@@ -102,3 +102,20 @@ void Cube::Draw() {
     }
 
 }
+
+void Cube::scaling(int op) {
+    if (!selected) return;
+
+    Eigen::MatrixXf scalM(4,4);
+    if (op == X) {
+        scalM << 0.9, 0, 0, 0,
+                 0, 1, 0, 0,
+                 0, 0, 1, 0,
+                 0, 0, 0, 1;
+    }
+
+    for (int i = 0; i < vertices.size(); i+=3) {
+        Eigen::Vector4f v(vertices[i], vertices[i+1], vertices[i+2], 1);
+        v = scalM*v;
+    }
+}
