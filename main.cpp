@@ -126,6 +126,12 @@ void diselectALL(){
     }
 }
 
+void scaleALL(int op){
+    for(std::vector<Cube>::iterator c = cubes.begin(); c != cubes.end(); ++c) {
+        c->scaling(op);
+    }
+}
+
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
     //std::cout << key << std::endl;
@@ -175,27 +181,34 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
             case GLFW_KEY_LEFT_SHIFT:
             case GLFW_KEY_RIGHT_SHIFT:
                 shiftPressed = true;
+                printf("B");
                 break;
 
             case GLFW_KEY_X:
                 if (shiftPressed) {
                     std::cout << "increase width of shape by 1.1 factor" << std::endl;
+                    scaleALL(SHIFT_X);
                 } else {
                     std::cout << "decrese width of shape by 0.9 factor" << std::endl;
+                    scaleALL(X);
                 }
                 break;
             case GLFW_KEY_Y:
                 if (shiftPressed) {
                     std::cout << "increase height of shape by 1.1 factor" << std::endl;
+                    scaleALL(SHIFT_Y);
                 } else {
                     std::cout << "decrese height of shape by 0.9 factor" << std::endl;
+                    scaleALL(Y);
                 }
                 break;
             case GLFW_KEY_Z:
                 if (shiftPressed) {
                     std::cout << "increase depth of shape by 1.1 factor" << std::endl;
+                    scaleALL(SHIFT_Z);
                 } else {
-                     std::cout << "decrese depth of shape by 0.9 factor" << std::endl;
+                    std::cout << "decrese depth of shape by 0.9 factor" << std::endl;
+                    scaleALL(Z);
                 }
                 break;
 

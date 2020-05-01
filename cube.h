@@ -7,7 +7,7 @@
 #define X 1
 #define SHIFT_X 2
 #define Y 3
-#define SIFIT_Y 4
+#define SHIFT_Y 4
 #define Z 5
 #define SHIFT_Z 6
 
