@@ -19,7 +19,7 @@ public:
     void selectAll();
     void diselectAll();
 
-    void scaling()
+    void scaling(int op);
 
 private:
     std::vector<GLfloat> vertices;
