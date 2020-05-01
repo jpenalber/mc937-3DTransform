@@ -13,8 +13,7 @@ public:
 
 private:
     std::vector<GLfloat> vertices;
-    std::vector<GLfloat> colour =
-    {
+    std::vector<GLfloat> colour = {
       255, 0, 0,
       255, 0, 0,
       255, 0, 0,
@@ -43,10 +42,9 @@ private:
       255, 0, 255,
       255, 0, 255,
       255, 0, 255,
-      255, 0, 255
-    };
-    std::vector<GLfloat> colour_b =
-    {
+      255, 0, 255};
+
+    std::vector<GLfloat> colour_b = {
       0, 0, 0,
       0, 0, 0,
       0, 0, 0,
@@ -75,8 +73,7 @@ private:
       0, 0, 0,
       0, 0, 0,
       0, 0, 0,
-      0, 0, 0
-    };
+      0, 0, 0};
 };
 
 #endif // CUBE_H
