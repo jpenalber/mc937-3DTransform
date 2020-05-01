@@ -14,6 +14,7 @@ GLfloat translationY = 0.0f;
 bool translation_active = false;
 
 int selectedCube = 0;
+std::vector<Cube> cubes;
 
 int main( void )
 {
@@ -56,10 +57,9 @@ int main( void )
     GLfloat halfScreenWidth = SCREEN_WIDTH / 6;
     GLfloat halfScreenHeight = SCREEN_HEIGHT / 6;
 
-    std::vector<Cube> cubes;
-
     Cube *cube = new Cube();
     cube->setVertices(halfScreenWidth, halfScreenHeight, -500, 200);
+    cube->select();
     cubes.push_back(*cube);
     cube = new Cube();
     cube->setVertices(3*halfScreenWidth, halfScreenHeight, -500, 200);
@@ -129,35 +129,18 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
                 break;
 
             // Cube selection
-            case GLFW_KEY_0:
-                selectedCube = 0;
-                break;
             case GLFW_KEY_1:
-                selectedCube = 1;
-                break;
             case GLFW_KEY_2:
-                selectedCube = 2;
-                break;
             case GLFW_KEY_3:
-                selectedCube = 3;
-                break;
             case GLFW_KEY_4:
-                selectedCube = 4;
-                break;
             case GLFW_KEY_5:
-                selectedCube = 5;
-                break;
             case GLFW_KEY_6:
-                selectedCube = 6;
-                break;
             case GLFW_KEY_7:
-                selectedCube = 7;
-                break;
             case GLFW_KEY_8:
-                selectedCube = 8;
-                break;
             case GLFW_KEY_9:
-                selectedCube = 9;
+                cubes[selectedCube].diselect();
+                selectedCube = key-GLFW_KEY_0-1;
+                cubes[selectedCube].select();
                 break;
 
             // Scaling
