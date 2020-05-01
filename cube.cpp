@@ -1,3 +1,4 @@
+#include <iostream>
 #include "cube.h"
 
 Cube::Cube() {
@@ -117,5 +118,58 @@ void Cube::scaling(int op) {
     for (int i = 0; i < vertices.size(); i+=3) {
         Eigen::Vector4f v(vertices[i], vertices[i+1], vertices[i+2], 1);
         v = scalM*v;
+    }
+}
+
+void Cube::translate(int op) {
+    if (!selected) return;
+
+    Eigen::MatrixXf scalM(4,4);
+
+    switch (op) {
+        case TRANS_RIGHT:
+            scalM << 1, 0, 0, 1,
+                     0, 1, 0, 0,
+                     0, 0, 1, 0,
+                     0, 0, 0, 1;
+        break;
+        case TRANS_LEFT:
+            scalM << 1, 0, 0, -1,
+                     0, 1, 0, 0,
+                     0, 0, 1, 0,
+                     0, 0, 0, 1;
+        break;
+        case TRANS_UP:
+            scalM << 1, 0, 0, 0,
+                     0, 1, 0, 1,
+                     0, 0, 1, 0,
+                     0, 0, 0, 1;
+        break;
+        case TRANS_DOWN:
+            scalM << 1, 0, 0, 0,
+                     0, 1, 0, -1,
+                     0, 0, 1, 0,
+                     0, 0, 0, 1;
+        break;
+        case TRANS_FOWARD:
+            scalM << 1, 0, 0, 0,
+                     0, 1, 0, 0,
+                     0, 0, 1, 1,
+                     0, 0, 0, 1;
+        break;
+        case TRANS_BACKWARD:
+            scalM << 1, 0, 0, 0,
+                     0, 1, 0, 0,
+                     0, 0, 1, -1,
+                     0, 0, 0, 1;
+        break;
+    }
+
+    for (int i = 0; i < vertices.size(); i+=3) {
+        Eigen::Vector4f v(vertices[i], vertices[i+1], vertices[i+2], 1);
+        v = scalM*v;
+        vertices[i] = v[0];
+        vertices[i+1] = v[1];
+        vertices[i+2] = v[2];
     }
 }
