@@ -12,6 +12,8 @@ public:
     void Draw();
     void select();
     void diselect();
+    void selectAll();
+    void diselectAll();
 
 private:
     std::vector<GLfloat> vertices;
@@ -20,6 +22,7 @@ private:
     GLfloat edgeLength;
 
     bool selected = false;
+    bool all = false;
 
     std::vector<GLfloat> colour =
     {

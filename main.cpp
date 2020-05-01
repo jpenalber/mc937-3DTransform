@@ -111,7 +111,19 @@ int main( void )
     return 0;
 }
 
+void selectALL(){
+    for(std::vector<Cube>::iterator c = cubes.begin(); c != cubes.end(); ++c) {
+        c->select();
+        c->selectAll();
+    }
+}
 
+void diselectALL(){
+    for(std::vector<Cube>::iterator c = cubes.begin(); c != cubes.end(); ++c) {
+        c->diselect();
+        c->diselectAll();
+    }
+}
 
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
@@ -129,6 +141,11 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
                 break;
 
             // Cube selection
+            case GLFW_KEY_0:
+                selectALL();
+                selectedCube = -1;
+                break;
+
             case GLFW_KEY_1:
             case GLFW_KEY_2:
             case GLFW_KEY_3:
@@ -138,7 +155,11 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
             case GLFW_KEY_7:
             case GLFW_KEY_8:
             case GLFW_KEY_9:
-                cubes[selectedCube].diselect();
+                if (selectedCube == -1) {
+                    diselectALL();
+                } else {
+                    cubes[selectedCube].diselect();
+                }
                 selectedCube = key-GLFW_KEY_0-1;
                 cubes[selectedCube].select();
                 break;

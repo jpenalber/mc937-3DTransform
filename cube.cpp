@@ -11,6 +11,14 @@ void Cube::diselect() {
     selected = false;
 }
 
+void Cube::selectAll() {
+    all = true;
+}
+
+void Cube::diselectAll() {
+    all = false;
+}
+
 void Cube::setVertices(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength) {
     GLfloat halfSideLength = edgeLength * 0.5f;
     this->edgeLength = edgeLength;
