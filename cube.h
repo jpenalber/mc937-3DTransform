@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <vector>
 #include <Eigen/Dense>
+#include <math.h>
 
 #define X 1
 #define SHIFT_X 2
@@ -36,6 +37,8 @@ public:
     void scaling(int op);
 
     void translate(int op);
+
+    void rotating(int op);
 private:
     std::vector<GLfloat> vertices;
 

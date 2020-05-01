@@ -165,14 +165,16 @@ void Cube::scaling(int op) {
             break;
     }
 
+    Eigen::MatrixXf M(4,4);
+    if (!all) {
+        M = transB*scalM*transM;
+    } else {
+        M = scalM;
+    }
 
     for (int i = 0; i < vertices.size(); i+=3) {
         Eigen::Vector4f v(vertices[i], vertices[i+1], vertices[i+2], 1);
-        if (!all) {
-            v = transB*scalM*transM*v;
-        } else {
-            v = scalM*v;
-        }
+        v = M*v;
         vertices[i] = v[0];
         vertices[i+1] = v[1];
         vertices[i+2] = v[2];
@@ -234,6 +236,73 @@ void Cube::translate(int op) {
     for (int i = 0; i < vertices.size(); i+=3) {
         Eigen::Vector4f v(vertices[i], vertices[i+1], vertices[i+2], 1);
         v = scalM*v;
+        vertices[i] = v[0];
+        vertices[i+1] = v[1];
+        vertices[i+2] = v[2];
+    }
+
+    if (all) {
+        Eigen::Vector4f v(origin[0], origin[1], origin[2], 1);
+        v = scalM*v;
+        origin[0] = v[0];
+        origin[1] = v[1];
+        origin[2] = v[2];
+    }
+}
+
+void Cube::rotating(int op) {
+    if (!selected) return;
+    double step = .05f;
+    double cosa = cos(step);
+    double sina = sin(step);
+
+    Eigen::MatrixXf scalM(4,4);
+
+    // Matrix to apply scaling on cube cord by tranlating it to (0,0)
+    Eigen::MatrixXf transM(4,4);
+    Eigen::MatrixXf transB(4,4);
+    transM << 1, 0, 0, -origin[0],
+             0, 1, 0, -origin[1],
+             0, 0, 1, -origin[2],
+             0, 0, 0, 1;
+    transB << 1, 0, 0, origin[0],
+             0, 1, 0, origin[1],
+             0, 0, 1, origin[2],
+             0, 0, 0, 1;
+
+    switch (op) {
+        case(S):
+            scalM << 1, 0, 0, 0,
+                     0, cosa, -sina, 0,
+                     0, sina, cosa, 0,
+                     0, 0, 0, 1;
+            break;
+
+        case(Q):
+            scalM << cosa, 0, -sina, 0,
+                     0, 1, 0, 0,
+                     sina, 0, cosa, 0,
+                     0, 0, 0, 1;
+            break;
+
+        case(A):
+            scalM << cosa, -sina, 0, 0,
+                     sina, cosa, 0, 0,
+                     0, 0, 1, 0,
+                     0, 0, 0, 1;
+            break;
+    }
+
+    Eigen::MatrixXf M(4,4);
+    if (!all) {
+        M = transB*scalM*transM;
+    } else {
+        M = scalM;
+    }
+
+    for (int i = 0; i < vertices.size(); i+=3) {
+        Eigen::Vector4f v(vertices[i], vertices[i+1], vertices[i+2], 1);
+        v = M*v;
         vertices[i] = v[0];
         vertices[i+1] = v[1];
         vertices[i+2] = v[2];

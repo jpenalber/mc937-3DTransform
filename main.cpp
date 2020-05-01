@@ -139,6 +139,12 @@ void translateAll(int op){
     }
 }
 
+void rotateAll(int op){
+    for(std::vector<Cube>::iterator c = cubes.begin(); c != cubes.end(); ++c) {
+        c->rotating(op);
+    }
+}
+
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
     //std::cout << key << std::endl;
@@ -222,12 +228,15 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
             // Rotation
             case GLFW_KEY_S:
                 std::cout << "rotate the selected cube aroud the x-axis" << std::endl;
+                rotateAll(S);
                 break;
             case GLFW_KEY_Q:
                 std::cout << "rotate the selected cube aroud the y-axis" << std::endl;
+                rotateAll(Q);
                 break;
             case GLFW_KEY_A:
                 std::cout << "rotate the selected cube aroud the z-axis" << std::endl;
+                rotateAll(A);
                 break;
         }
 
