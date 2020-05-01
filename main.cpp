@@ -12,6 +12,7 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
 GLfloat translationX = 0.0f;
 GLfloat translationY = 0.0f;
 bool translation_active = false;
+bool shiftPressed = false;
 
 int selectedCube = 0;
 std::vector<Cube> cubes;
@@ -115,9 +116,15 @@ int main( void )
 
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
-    std::cout << key << std::endl;
+    //std::cout << key << std::endl;
 
     const GLfloat rotationSpeed = 10;
+
+    if (action == GLFW_RELEASE) {
+        if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
+          shiftPressed = false;
+        }
+    }
 
     // actions are GLFW_PRESS, GLFW_RELEASE or GLFW_REPEAT
     if ( action == GLFW_PRESS || action == GLFW_REPEAT ) {
@@ -144,6 +151,32 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
                 break;
 
             // Scaling
+            case GLFW_KEY_LEFT_SHIFT:
+            case GLFW_KEY_RIGHT_SHIFT:
+                shiftPressed = true;
+                break;
+
+            case GLFW_KEY_X:
+                if (shiftPressed) {
+                    std::cout << "increase width of shape by 1.1 factor" << std::endl;
+                } else {
+                    std::cout << "decrese width of shape by 0.9 factor" << std::endl;
+                }
+                break;
+            case GLFW_KEY_Y:
+                if (shiftPressed) {
+                    std::cout << "increase height of shape by 1.1 factor" << std::endl;
+                } else {
+                    std::cout << "decrese height of shape by 0.9 factor" << std::endl;
+                }
+                break;
+            case GLFW_KEY_Z:
+                if (shiftPressed) {
+                    std::cout << "increase depth of shape by 1.1 factor" << std::endl;
+                } else {
+                     std::cout << "decrese depth of shape by 0.9 factor" << std::endl;
+                }
+                break;
 
             // Rotation
             case GLFW_KEY_S:
@@ -155,12 +188,9 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
             case GLFW_KEY_A:
                 std::cout << "rotate the selected cube aroud the z-axis" << std::endl;
                 break;
-
-            // Translation
         }
 
-        std::cout << "selectedCube: " << selectedCube << std::endl;
-
+        // Camera mode translations
         if (translation_active) {
             switch ( key )
             {
@@ -175,6 +205,30 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
                     break;
                 case GLFW_KEY_LEFT:
                     translationX -= rotationSpeed;
+                    break;
+            }
+        }
+        // Shape translations
+        else {
+            switch ( key )
+            {
+                case GLFW_KEY_UP:
+                    std::cout << "move the shape up" << std::endl;
+                    break;
+                case GLFW_KEY_DOWN:
+                    std::cout << "move the shape down" << std::endl;
+                    break;
+                case GLFW_KEY_RIGHT:
+                    std::cout << "move the shape right" << std::endl;
+                    break;
+                case GLFW_KEY_LEFT:
+                    std::cout << "move the shape left" << std::endl;
+                    break;
+                case GLFW_KEY_COMMA:
+                    std::cout << "move the shape foward" << std::endl;
+                    break;
+                case GLFW_KEY_PERIOD:
+                    std::cout << "move the shape backward" << std::endl;
                     break;
             }
         }
