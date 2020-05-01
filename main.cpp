@@ -13,6 +13,8 @@ GLfloat translationX = 0.0f;
 GLfloat translationY = 0.0f;
 bool translation_active = false;
 
+int selectedCube = 0;
+
 int main( void )
 {
     GLFWwindow *window;
@@ -113,15 +115,69 @@ int main( void )
 
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
-    //std::cout << key << std::endl;
+    std::cout << key << std::endl;
 
     const GLfloat rotationSpeed = 10;
 
     // actions are GLFW_PRESS, GLFW_RELEASE or GLFW_REPEAT
     if ( action == GLFW_PRESS || action == GLFW_REPEAT ) {
-        if (key == GLFW_KEY_C) {
-            translation_active = !translation_active;
+        switch (key) {
+
+            // Toggle camera mode
+            case GLFW_KEY_C:
+                translation_active = !translation_active;
+                break;
+
+            // Cube selection
+            case GLFW_KEY_0:
+                selectedCube = 0;
+                break;
+            case GLFW_KEY_1:
+                selectedCube = 1;
+                break;
+            case GLFW_KEY_2:
+                selectedCube = 2;
+                break;
+            case GLFW_KEY_3:
+                selectedCube = 3;
+                break;
+            case GLFW_KEY_4:
+                selectedCube = 4;
+                break;
+            case GLFW_KEY_5:
+                selectedCube = 5;
+                break;
+            case GLFW_KEY_6:
+                selectedCube = 6;
+                break;
+            case GLFW_KEY_7:
+                selectedCube = 7;
+                break;
+            case GLFW_KEY_8:
+                selectedCube = 8;
+                break;
+            case GLFW_KEY_9:
+                selectedCube = 9;
+                break;
+
+            // Scaling
+
+            // Rotation
+            case GLFW_KEY_S:
+                std::cout << "rotate the selected cube aroud the x-axis" << std::endl;
+                break;
+            case GLFW_KEY_Q:
+                std::cout << "rotate the selected cube aroud the y-axis" << std::endl;
+                break;
+            case GLFW_KEY_A:
+                std::cout << "rotate the selected cube aroud the z-axis" << std::endl;
+                break;
+
+            // Translation
         }
+
+        std::cout << "selectedCube: " << selectedCube << std::endl;
+
         if (translation_active) {
             switch ( key )
             {
