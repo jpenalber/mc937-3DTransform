@@ -132,6 +132,13 @@ void scaleALL(int op){
     }
 }
 
+
+void translateAll(int op){
+    for(std::vector<Cube>::iterator c = cubes.begin(); c != cubes.end(); ++c) {
+        c->translate(op);
+    }
+}
+
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
     //std::cout << key << std::endl;
@@ -247,22 +254,22 @@ void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mod
             switch ( key )
             {
                 case GLFW_KEY_UP:
-                    std::cout << "move the shape up" << std::endl;
+                    translateAll(TRANS_UP);
                     break;
                 case GLFW_KEY_DOWN:
-                    std::cout << "move the shape down" << std::endl;
+                    translateAll(TRANS_DOWN);
                     break;
                 case GLFW_KEY_RIGHT:
-                    std::cout << "move the shape right" << std::endl;
+                    translateAll(TRANS_RIGHT);
                     break;
                 case GLFW_KEY_LEFT:
-                    std::cout << "move the shape left" << std::endl;
+                    translateAll(TRANS_LEFT);
                     break;
                 case GLFW_KEY_COMMA:
-                    std::cout << "move the shape foward" << std::endl;
+                    translateAll(TRANS_FOWARD);
                     break;
                 case GLFW_KEY_PERIOD:
-                    std::cout << "move the shape backward" << std::endl;
+                    translateAll(TRANS_BACKWARD);
                     break;
             }
         }

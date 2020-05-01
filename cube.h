@@ -11,6 +11,17 @@
 #define Z 5
 #define SHIFT_Z 6
 
+#define S 7
+#define Q 8
+#define A 9
+
+#define TRANS_RIGHT 10
+#define TRANS_LEFT 11
+#define TRANS_UP 12
+#define TRANS_DOWN 13
+#define TRANS_FOWARD 14
+#define TRANS_BACKWARD 15
+
 class Cube
 {
 public:
@@ -24,6 +35,7 @@ public:
 
     void scaling(int op);
 
+    void translate(int op);
 private:
     std::vector<GLfloat> vertices;
 
